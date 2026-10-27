@@ -1,12 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProdukController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/products', [ProductController::class, 'index']);
 
 Route::get('/halo', function () {
     return 'Halo, selamat datang di Laravel 13!';
@@ -55,6 +57,11 @@ Route::fallback(function () {
     return response('Halaman tidak ditemukan (kustom).', 404);
 }); // Pertemuan 2
 
-Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index'); 
-Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.show'); 
+Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
+Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.show');
 // Route::resource('produk', ProdukController::class); // 7 route CRUD sekaligus // pertemuan 3
+
+Route::get('/product/{id}',
+    function ($id) {
+        return 'Product #'.$id;
+    });
